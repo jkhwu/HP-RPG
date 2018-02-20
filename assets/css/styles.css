@@ -7,3 +7,16 @@ h1,
 h2 {
     color: white;
 }
+
+.card-body {
+    padding: 5px;
+    text-align: center;
+}
+
+.card-title {
+    margin: 0;
+}
+
+.row {
+    text-align: center;
+}

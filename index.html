@@ -6,55 +6,111 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Meyerweb Reset CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- My Links -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png" />
+    <script src="assets/javascript/fontawesome-all.min.js"></script>
     <title>Wizarding Duel!</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
         <div class="container">
-            <a class="navbar-brand" href="#">Wizarding Duel!</a>
+            <a class="navbar-brand mx-auto" href="#">WIZARDING DUEL!</a>
         </div>
 
     </nav>
     <main class="container">
-
-        <h2>Select Your Character</h2>
-        <div class="card-deck">
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="select-instruction">Select Your Character</h2>
+                <div class="card-deck select-space">
+                    <div class="card text-white bg-danger mb-3 collapse good-guy">
+                        <img class="card-img-top" src="assets/images/harry.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Harry</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-danger mb-3 collapse good-guy">
+                        <img class="card-img-top" src="assets/images/hermione.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Hermione</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-danger mb-3 collapse good-guy">
+                        <img class="card-img-top" src="assets/images/molly.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Molly</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-success mb-3 collapse bad-guy">
+                        <img class="card-img-top" src="assets/images/voldie.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Voldemort</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-success mb-3 collapse bad-guy">
+                        <img class="card-img-top" src="assets/images/bellatrix.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Bellatrix</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-success mb-3 collapse bad-guy">
+                        <img class="card-img-top" src="assets/images/draco.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Draco</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h2>Your Character</h2>
+                <div class="you-space">
+                    <div class="card text-white bg-danger mb-3 mx-auto collapse" style="max-width: 20rem">
+                        <img class="card-img-top" src="assets/images/hermione.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Hermione</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <div class="col-2">
+                <button id="attack-btn" type="button" class="btn btn-lg btn-warning" disabled>ATTACK</button>
+            </div>
+            <div class="col-5">
+                <h2>Defender</h2>
+                <div class="defender-space">
+                    <div class="card text-white bg-success mb-3 mx-auto collapse" style="max-width: 20rem">
+                        <img class="card-img-top" src="assets/images/draco.jpg" alt="Harry Potter">
+                        <div class="card-body">
+                            <h5 class="card-title">Draco</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-12">
 
-        <h2>Select Your Opponent</h2>
-
-        <h2>Fight Section</h2>
-        <button type="button" class="btn btn-danger">ATTACK</button>
-
-        <h2>Defender</h2>
+            </div>
+        </div>
     </main>
 
     <!-- Optional JavaScript -->

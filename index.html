@@ -19,111 +19,131 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png" />
     <script src="assets/javascript/fontawesome-all.min.js"></script>
-    <title>Battle for Hogwarts</title>
+    <title>Battle of Hogwarts</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-        <div class="container">
-            <a class="navbar-brand mx-auto" href="#">BATTLE FOR HOGWARTS!</a>
-        </div>
 
-    </nav>
-    <main class="container">
+    <main class="container mt-3">
+
+        <!-- Selection Area -->
         <div class="row">
             <div class="col-12">
-
-                <h2 id="select-instruction">Select Your Character</h2>
-
-                <div class="row">
-
-                    <div class="col-md-2 col-6 select gryffindor collapse">
-                        <div id="harry-card" class="card text-white bg-danger mb-3">
-                            <img class="card-img-top" src="assets/images/harry.jpg" alt="Harry">
-                            <div class="card-body">
-                                <h5 class="card-title">Harry</h5>
-                                <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-6 select gryffindor collapse">
-                        <div id="hermione-card" class="card text-white bg-danger mb-3">
-                            <img class="card-img-top" src="assets/images/hermione.jpg" alt="Hermione">
-                            <div class="card-body">
-                                <h5 class="card-title">Hermione</h5>
-                                <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-6 select gryffindor collapse">
-                        <div id="molly-card" class="card text-white bg-danger mb-3">
-                            <img class="card-img-top" src="assets/images/molly.jpg" alt="Molly">
-                            <div class="card-body">
-                                <h5 class="card-title">Molly</h5>
-                                <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-6 select slytherin collapse">
-                        <div id="voldemort-card" class="card text-white bg-success mb-3">
-                            <img class="card-img-top" src="assets/images/voldie.jpg" alt="Voldemort">
-                            <div class="card-body">
-                                <h5 class="card-title">Voldemort</h5>
-                                <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-6 select slytherin collapse">
-                        <div id="bellatrix-card" class="card text-white bg-success mb-3">
-                            <img class="card-img-top" src="assets/images/bellatrix.jpg" alt="Bellatrix">
-                            <div class="card-body">
-                                <h5 class="card-title">Bellatrix</h5>
-                                <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-6 select slytherin collapse">
-                        <div id="draco-card" class="card text-white bg-success mb-3">
-                            <img class="card-img-top" src="assets/images/draco.jpg" alt="Draco">
-                            <div class="card-body">
-                                <h5 class="card-title">Draco</h5>
-                                <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                <h2 id="instruction">Select Your Character</h2>
             </div>
         </div>
+
+
         <div class="row">
-            <div class="col-5">
-                <h2>You</h2>
-                <div class="duel-space collapse">
-                    <div id="you-card" class="card text-white bg-danger mb-3 mx-auto" style="max-width: 20rem">
+
+            <!-- Character Cards -->
+
+            <div class="col-md-2 col-6">
+                <div class="selection collapse">
+                    <div id="harry" class="card text-white bg-danger mb-3 gryffindor">
+                        <img class="card-img-top" src="assets/images/harry.jpg" alt="Harry">
+                        <div class="card-body">
+                            <h5 class="card-title">Harry</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-6">
+                <div class="selection collapse">
+                    <div id="hermione" class="card text-white bg-danger mb-3 gryffindor">
                         <img class="card-img-top" src="assets/images/hermione.jpg" alt="Hermione">
                         <div class="card-body">
                             <h5 class="card-title">Hermione</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span id="your-health-text"> 30</span></p>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-2">
-                <button id="attack-btn" type="button" class="btn btn-lg btn-warning"><i class="fas fa-bolt"></i> ATTACK</button>
+
+            <div class="col-md-2 col-6">
+                <div class="selection collapse">
+                    <div id="molly" class="card text-white bg-danger mb-3 gryffindor">
+                        <img class="card-img-top" src="assets/images/molly.jpg" alt="Molly">
+                        <div class="card-body">
+                            <h5 class="card-title">Molly</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-5">
-                <h2>Opponent</h2>
-                <div class="duel-space collapse">
-                    <div id="opponent-card" class="card text-white bg-success mb-3 mx-auto" style="max-width: 20rem">
+
+            <div class="col-md-2 col-6">
+                <div class="selection collapse">
+                    <div id="voldemort" class="card text-white bg-success mb-3 slytherin">
+                        <img class="card-img-top" src="assets/images/voldie.jpg" alt="Voldemort">
+                        <div class="card-body">
+                            <h5 class="card-title">Voldemort</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-6">
+                <div class="selection collapse">
+                    <div id="bellatrix" class="card text-white bg-success mb-3 slytherin">
+                        <img class="card-img-top" src="assets/images/bellatrix.jpg" alt="Bellatrix">
+                        <div class="card-body">
+                            <h5 class="card-title">Bellatrix</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-6">
+                <div class="selection collapse">
+                    <div id="draco" class="card text-white bg-success mb-3 slytherin">
                         <img class="card-img-top" src="assets/images/draco.jpg" alt="Draco">
                         <div class="card-body">
                             <h5 class="card-title">Draco</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span id="opponents-health-text"> 20</span></p>
+                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Duel Space -->
+
+        <div class="row">
+
+            <!-- Selected Hero -->
+
+            <div class="col-5">
+                <h2>You</h2>
+                <div class="duelSpace collapse">
+                    <div id="youCard" class="card text-white bg-danger mb-3 mx-auto" style="max-width: 20rem">
+                        <img class="card-img-top" src="assets/images/hermione.jpg" alt="Hermione">
+                        <div class="card-body">
+                            <h5 class="card-title">Hermione Granger</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span id="yourHealthText"> 30</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Opponent -->
+
+            <div class="col-2">
+                <button id="attackBtn" type="button" class="btn btn-lg btn-warning"><i class="fas fa-bolt"></i> ATTACK</button>
+            </div>
+            <div class="col-5">
+                <h2>Opponent</h2>
+                <div class="duelSpace collapse">
+                    <div id="opponentCard" class="card text-white bg-success mb-3 mx-auto" style="max-width: 20rem">
+                        <img class="card-img-top" src="assets/images/draco.jpg" alt="Draco">
+                        <div class="card-body">
+                            <h5 class="card-title">Draco Malfoy</h5>
+                            <p class="card-text"><i class="fas fa-heart"></i><span id="opponentsHealthText"> 20</span></p>
                         </div>
                     </div>
                 </div>
@@ -131,9 +151,12 @@
         </div>
 
         <div class="row">
+
+            <!-- Narration and Restart Button -->
+
             <div class="col-12">
-                <h3 id="narration-text">Narration goes here</h3>
-                <button id="restart-btn" type="button" class="btn btn-lg btn-success invisible">RESTART</button>
+                <h3 id="narrationText">Narration goes here</h3>
+                <button id="restartBtn" type="button" class="btn btn-lg btn-primary">RESTART</button>
             </div>
         </div>
     </main>

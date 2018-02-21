@@ -13,10 +13,11 @@ $(document).ready(function() {
         inBattleMode = false;
         $("#instruction").html("Select Your Character");
         $(".selection").collapse("show");
-        $(".duelSpace").collapse("show"); // change this to "hide" later
-        $("#attackBtn").attr("disabled", "true");
-        $("#narration-text").empty();
-        // $("#restart-btn").hide(); // turn this on later
+        $(".dueller").collapse("hide");
+        $("#attackBtn").hide();
+        $("#restartBtn").hide();
+        $(".charHeading").empty();
+        $("#narrationText").empty();
     }
 
     function setupEventHandlers() {
@@ -32,11 +33,12 @@ $(document).ready(function() {
             hero = $(this).attr("id");
             isHeroSelected = true;
             console.log("hero: " + hero);
-            //     makeHeroCard(hero);
+            makeHeroCard(hero);
         } else {
             opponent = $(this).attr("id");
             console.log("opponent: " + opponent);
-            //     makeOpponentCard(opponent);
+            makeOpponentCard(opponent);
+            startBattleMode(hero, opponent);
         }
         $(".gryffindor").parent().collapse("hide");
     }
@@ -47,11 +49,12 @@ $(document).ready(function() {
             hero = $(this).attr("id");
             isHeroSelected = true;
             console.log("hero: " + hero);
-
+            makeHeroCard(hero);
         } else {
             opponent = $(this).attr("id");
             console.log("opponent: " + opponent);
-            //     makeOpponentCard(opponent);
+            makeOpponentCard(opponent);
+            startBattleMode(hero, opponent);
         }
         $(".slytherin").parent().collapse("hide");
     }
@@ -62,6 +65,11 @@ $(document).ready(function() {
 
     function makeOpponentCard(opY) {
 
+    }
+
+    function startBattleMode() {
+        if (!isHeroSelected) return;
+        inBattleMode = true;
     }
 
     function onAttackClick() {

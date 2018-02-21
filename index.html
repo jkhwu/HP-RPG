@@ -24,10 +24,10 @@
 
 <body>
 
-    <main class="container mt-3">
+    <main class="container">
 
         <!-- Selection Area -->
-        <div class="row">
+        <div class="row mt-3 mb-2">
             <div class="col-12">
                 <h2 id="instruction">Select Your Character</h2>
             </div>
@@ -119,8 +119,8 @@
             <!-- Selected Hero -->
 
             <div class="col-5">
-                <h2>You</h2>
-                <div class="duelSpace collapse">
+                <h2 class="charHeading">You</h2>
+                <div class="dueller collapse">
                     <div id="youCard" class="card text-white bg-danger mb-3 mx-auto" style="max-width: 20rem">
                         <img class="card-img-top" src="assets/images/hermione.jpg" alt="Hermione">
                         <div class="card-body">
@@ -137,8 +137,8 @@
                 <button id="attackBtn" type="button" class="btn btn-lg btn-warning"><i class="fas fa-bolt"></i> ATTACK</button>
             </div>
             <div class="col-5">
-                <h2>Opponent</h2>
-                <div class="duelSpace collapse">
+                <h2 class="charHeading">Opponent</h2>
+                <div class="dueller collapse">
                     <div id="opponentCard" class="card text-white bg-success mb-3 mx-auto" style="max-width: 20rem">
                         <img class="card-img-top" src="assets/images/draco.jpg" alt="Draco">
                         <div class="card-body">
@@ -155,7 +155,7 @@
             <!-- Narration and Restart Button -->
 
             <div class="col-12">
-                <h3 id="narrationText">Narration goes here</h3>
+                <h3 id="narrationText">narration goes here</h3>
                 <button id="restartBtn" type="button" class="btn btn-lg btn-primary">RESTART</button>
             </div>
         </div>

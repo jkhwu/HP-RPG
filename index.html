@@ -12,94 +12,118 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
     <!-- My Links -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png" />
     <script src="assets/javascript/fontawesome-all.min.js"></script>
-    <title>Wizarding Duel!</title>
+    <title>Battle for Hogwarts</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container">
-            <a class="navbar-brand mx-auto" href="#">WIZARDING DUEL!</a>
+            <a class="navbar-brand mx-auto" href="#">BATTLE FOR HOGWARTS!</a>
         </div>
 
     </nav>
     <main class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="select-instruction">Select Your Character</h2>
-                <div class="card-deck select-space">
-                    <div class="card text-white bg-danger mb-3 collapse good-guy">
-                        <img class="card-img-top" src="assets/images/harry.jpg" alt="Harry Potter">
-                        <div class="card-body">
-                            <h5 class="card-title">Harry</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+
+                <h2 id="select-instruction">Select Your Character</h2>
+
+                <div class="row">
+
+                    <div class="col-md-2 col-6 select gryffindor collapse">
+                        <div id="harry-card" class="card text-white bg-danger mb-3">
+                            <img class="card-img-top" src="assets/images/harry.jpg" alt="Harry">
+                            <div class="card-body">
+                                <h5 class="card-title">Harry</h5>
+                                <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card text-white bg-danger mb-3 collapse good-guy">
-                        <img class="card-img-top" src="assets/images/hermione.jpg" alt="Harry Potter">
-                        <div class="card-body">
-                            <h5 class="card-title">Hermione</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+
+                    <div class="col-md-2 col-6 select gryffindor collapse">
+                        <div id="hermione-card" class="card text-white bg-danger mb-3">
+                            <img class="card-img-top" src="assets/images/hermione.jpg" alt="Hermione">
+                            <div class="card-body">
+                                <h5 class="card-title">Hermione</h5>
+                                <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card text-white bg-danger mb-3 collapse good-guy">
-                        <img class="card-img-top" src="assets/images/molly.jpg" alt="Harry Potter">
-                        <div class="card-body">
-                            <h5 class="card-title">Molly</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+
+                    <div class="col-md-2 col-6 select gryffindor collapse">
+                        <div id="molly-card" class="card text-white bg-danger mb-3">
+                            <img class="card-img-top" src="assets/images/molly.jpg" alt="Molly">
+                            <div class="card-body">
+                                <h5 class="card-title">Molly</h5>
+                                <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card text-white bg-success mb-3 collapse bad-guy">
-                        <img class="card-img-top" src="assets/images/voldie.jpg" alt="Harry Potter">
-                        <div class="card-body">
-                            <h5 class="card-title">Voldemort</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+
+                    <div class="col-md-2 col-6 select slytherin collapse">
+                        <div id="voldemort-card" class="card text-white bg-success mb-3">
+                            <img class="card-img-top" src="assets/images/voldie.jpg" alt="Voldemort">
+                            <div class="card-body">
+                                <h5 class="card-title">Voldemort</h5>
+                                <p class="card-text"><i class="fas fa-heart"></i><span> 50</span></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card text-white bg-success mb-3 collapse bad-guy">
-                        <img class="card-img-top" src="assets/images/bellatrix.jpg" alt="Harry Potter">
-                        <div class="card-body">
-                            <h5 class="card-title">Bellatrix</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+
+                    <div class="col-md-2 col-6 select slytherin collapse">
+                        <div id="bellatrix-card" class="card text-white bg-success mb-3">
+                            <img class="card-img-top" src="assets/images/bellatrix.jpg" alt="Bellatrix">
+                            <div class="card-body">
+                                <h5 class="card-title">Bellatrix</h5>
+                                <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card text-white bg-success mb-3 collapse bad-guy">
-                        <img class="card-img-top" src="assets/images/draco.jpg" alt="Harry Potter">
-                        <div class="card-body">
-                            <h5 class="card-title">Draco</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+
+                    <div class="col-md-2 col-6 select slytherin collapse">
+                        <div id="draco-card" class="card text-white bg-success mb-3">
+                            <img class="card-img-top" src="assets/images/draco.jpg" alt="Draco">
+                            <div class="card-body">
+                                <h5 class="card-title">Draco</h5>
+                                <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
-        <div class="row align-items-center">
+        <div class="row">
             <div class="col-5">
-                <h2>Your Character</h2>
-                <div class="you-space">
-                    <div class="card text-white bg-danger mb-3 mx-auto collapse" style="max-width: 20rem">
-                        <img class="card-img-top" src="assets/images/hermione.jpg" alt="Harry Potter">
+                <h2>You</h2>
+                <div class="duel-space collapse">
+                    <div id="you-card" class="card text-white bg-danger mb-3 mx-auto" style="max-width: 20rem">
+                        <img class="card-img-top" src="assets/images/hermione.jpg" alt="Hermione">
                         <div class="card-body">
                             <h5 class="card-title">Hermione</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 30</span></p>
+                            <p class="card-text"><i class="fas fa-heart"></i><span id="your-health-text"> 30</span></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-2">
-                <button id="attack-btn" type="button" class="btn btn-lg btn-warning" disabled>ATTACK</button>
+                <button id="attack-btn" type="button" class="btn btn-lg btn-warning"><i class="fas fa-bolt"></i> ATTACK</button>
             </div>
             <div class="col-5">
-                <h2>Defender</h2>
-                <div class="defender-space">
-                    <div class="card text-white bg-success mb-3 mx-auto collapse" style="max-width: 20rem">
-                        <img class="card-img-top" src="assets/images/draco.jpg" alt="Harry Potter">
+                <h2>Opponent</h2>
+                <div class="duel-space collapse">
+                    <div id="opponent-card" class="card text-white bg-success mb-3 mx-auto" style="max-width: 20rem">
+                        <img class="card-img-top" src="assets/images/draco.jpg" alt="Draco">
                         <div class="card-body">
                             <h5 class="card-title">Draco</h5>
-                            <p class="card-text"><i class="fas fa-heart"></i><span> 20</span></p>
+                            <p class="card-text"><i class="fas fa-heart"></i><span id="opponents-health-text"> 20</span></p>
                         </div>
                     </div>
                 </div>
@@ -108,14 +132,16 @@
 
         <div class="row">
             <div class="col-12">
-
+                <h3 id="narration-text">Narration goes here</h3>
+                <button id="restart-btn" type="button" class="btn btn-lg btn-success invisible">RESTART</button>
             </div>
         </div>
     </main>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- My JavaScript -->
+    <script src="assets/javascript/game.js"></script>
+
+    <!-- Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>

@@ -9,6 +9,14 @@ h3 {
     color: white;
 }
 
+.gryffindor {
+    background-color: rgb(209, 4, 4);
+}
+
+.slytherin {
+    background-color: rgb(31, 146, 31);
+}
+
 .selection>.card {
     cursor: copy;
 }

@@ -11,13 +11,24 @@ $(document).ready(function() {
         opponent = {};
         isHeroSelected = false;
         inBattleMode = false;
+        displayCharStats();
         $("#instruction").html("Select Your Character");
         $(".selection").collapse("show");
-        $(".dueller").collapse("hide");
+        $(".heroSpace").collapse("hide");
+        $(".opponentSpace").collapse("hide");
         $("#attackBtn").hide();
         $("#restartBtn").hide();
-        $(".charHeading").empty();
+        $(".charLabel").hide();
         $("#narrationText").empty();
+    }
+
+    function displayCharStats() {
+        $("#harryHealthText").html(" " + characters.harry.maxHealth);
+        $("#hermioneHealthText").html(" " + characters.hermione.maxHealth);
+        $("#mollyHealthText").html(" " + characters.molly.maxHealth);
+        $("#voldemortHealthText").html(" " + characters.voldemort.maxHealth);
+        $("#bellatrixHealthText").html(" " + characters.bellatrix.maxHealth);
+        $("#dracoHealthText").html(" " + characters.draco.maxHealth);
     }
 
     function setupEventHandlers() {
@@ -28,48 +39,70 @@ $(document).ready(function() {
     }
 
     function onGryffindorClick() {
-        if (inBattleMode) return;
-        if (!isHeroSelected) {
-            hero = $(this).attr("id");
-            isHeroSelected = true;
-            console.log("hero: " + hero);
-            makeHeroCard(hero);
-        } else {
-            opponent = $(this).attr("id");
-            console.log("opponent: " + opponent);
-            makeOpponentCard(opponent);
-            startBattleMode(hero, opponent);
-        }
-        $(".gryffindor").parent().collapse("hide");
+        var clickedChar = $(this);
+        var house = "gryffindor";
+        assignDuellers(clickedChar, house);
     }
 
     function onSlytherinClick() {
+        var clickedChar = $(this);
+        var house = "slytherin";
+        assignDuellers(clickedChar, house);
+    }
+
+    function assignDuellers(clickedCharX, houseX) {
         if (inBattleMode) return;
         if (!isHeroSelected) {
-            hero = $(this).attr("id");
+            console.log("HERO: " + JSON.stringify(hero)); // test
+            hero = Object.assign({}, characters[clickedCharX.attr("id")]);
             isHeroSelected = true;
-            console.log("hero: " + hero);
+            $("." + houseX).parent().collapse("hide");
             makeHeroCard(hero);
+            $(".heroSpace").collapse("show");
         } else {
-            opponent = $(this).attr("id");
-            console.log("opponent: " + opponent);
+            console.log("OPPONENT: " + JSON.stringify(opponent)); // test
+            opponent = Object.assign({}, characters[clickedCharX.attr("id")]);
+            clickedCharX.parent().collapse("hide");
             makeOpponentCard(opponent);
             startBattleMode(hero, opponent);
+            $(".opponentSpace").collapse("show");
         }
-        $(".slytherin").parent().collapse("hide");
     }
 
     function makeHeroCard(heroX) {
-
+        console.log(heroX.image);
+        $("#heroCard img").attr("src", heroX.image).attr("alt", heroX.name);
+        $("#heroCard .nameText").html(heroX.name);
+        $("#heroCard .healthText").html(heroX.maxHealth);
+        var card = "#heroCard";
+        assignCardColor(heroX.house, cardType);
     }
 
     function makeOpponentCard(opY) {
-
+        $("#opponentCard img").attr("src", opY.image).attr("alt", opY.name);
+        $("#opponentCard .nameText").html(opY.name);
+        $("#opponentCard .healthText").html(opY.maxHealth);
+        var card = "#opponentCard";
+        assignCardColor(opY.house, card);
     }
 
-    function startBattleMode() {
+    function assignCardColor(houseX, cardX) {
+        if (houseX === "gryffindor") {
+            $(cardX).removeClass("btn")
+        } else if (houseX === "slytherin") {
+
+        }
+    }
+
+    function startBattleMode(heroX, opY) {
         if (!isHeroSelected) return;
+        console.log("start battle mode");
         inBattleMode = true;
+        $("#attackBtn").show();
+        var heroAttack = heroX.initAttack;
+        var opAttack = opY.counterAttack;
+        console.log(heroAttack, opAttack);
+
     }
 
     function onAttackClick() {
@@ -79,12 +112,12 @@ $(document).ready(function() {
 
     // OBJECTS
     var characters = {
-        harry: { name: "Harry Potter", house: "gryffindor", maxHealth: 15, initAttack: 2, image: "assets/images/harry.jpg" },
-        hermione: { name: "Hermione Granger", house: "gryffindor", maxHealth: 25, initAttack: 3, image: "assets/images/hermione.jpg" },
-        molly: { name: "Molly Weasley", house: "gryffindor", maxHealth: 50, initAttack: 5, image: "assets/images/molly.jpg" },
-        voldemort: { name: "Voldemort", house: "slytherin", maxHealth: 60, initAttack: 5, image: "assets/images/voldie.jpg" },
-        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", maxHealth: 40, initAttack: 4, image: "assets/images/bellatrix.jpg" },
-        draco: { name: "Draco Malfoy", house: "slytherin", maxHealth: 15, initAttack: 1, image: "assets/images/draco.jpg" }
+        harry: { name: "Harry Potter", house: "gryffindor", maxHealth: 15, initAttack: 2, counterAttack: 4, image: "assets/images/harry.jpg" },
+        hermione: { name: "Hermione Granger", house: "gryffindor", maxHealth: 25, initAttack: 3, counterAttack: 4, image: "assets/images/hermione.jpg" },
+        molly: { name: "Molly Weasley", house: "gryffindor", maxHealth: 50, initAttack: 5, counterAttack: 4, image: "assets/images/molly.jpg" },
+        voldemort: { name: "Voldemort", house: "slytherin", maxHealth: 60, initAttack: 5, counterAttack: 4, image: "assets/images/voldie.jpg" },
+        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", maxHealth: 40, initAttack: 4, counterAttack: 4, image: "assets/images/bellatrix.jpg" },
+        draco: { name: "Draco Malfoy", house: "slytherin", maxHealth: 15, initAttack: 1, counterAttack: 4, image: "assets/images/draco.jpg" }
     }
 
     // CALLS
@@ -94,3 +127,6 @@ $(document).ready(function() {
 
 // TO DO
 // fix displayed health on selection cards
+// figure out how to avoid flashing hidden content when refreshing
+// remove console.logs
+// formatting

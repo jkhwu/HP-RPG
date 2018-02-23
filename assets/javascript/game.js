@@ -165,11 +165,11 @@ $(document).ready(function() {
     // OBJECTS
     var characters = {
         harry: { name: "Harry Potter", house: "gryffindor", health: 105, attack: 5, counterattack: 4, image: "assets/images/harry.jpg" },
-        hermione: { name: "Hermione Granger", house: "gryffindor", health: 110, attack: 6, counterattack: 10, image: "assets/images/hermione.jpg" },
-        molly: { name: "Molly Weasley", house: "gryffindor", health: 140, attack: 8, counterattack: 20, image: "assets/images/molly.jpg" },
-        voldemort: { name: "Voldemort", house: "slytherin", health: 160, attack: 10, counterattack: 15, image: "assets/images/voldie.jpg" },
-        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", health: 150, attack: 9, counterattack: 10, image: "assets/images/bellatrix.jpg" },
-        draco: { name: "Draco Malfoy", house: "slytherin", health: 100, attack: 6, counterattack: 3, image: "assets/images/draco.jpg" }
+        hermione: { name: "Hermione Granger", house: "gryffindor", health: 110, attack: 5, counterattack: 10, image: "assets/images/hermione.jpg" },
+        molly: { name: "Molly Weasley", house: "gryffindor", health: 140, attack: 6, counterattack: 20, image: "assets/images/molly.jpg" },
+        voldemort: { name: "Voldemort", house: "slytherin", health: 160, attack: 6, counterattack: 15, image: "assets/images/voldie.jpg" },
+        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", health: 150, attack: 6, counterattack: 10, image: "assets/images/bellatrix.jpg" },
+        draco: { name: "Draco Malfoy", house: "slytherin", health: 100, attack: 5, counterattack: 3, image: "assets/images/draco.jpg" }
     }
 
     // CALLS

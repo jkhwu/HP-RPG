@@ -74,23 +74,23 @@ $(document).ready(function() {
         $("#heroCard img").attr("src", heroX.image).attr("alt", heroX.name);
         $("#heroCard .nameText").html(heroX.name);
         $("#heroCard .healthText").html(heroX.maxHealth);
-        var card = "#heroCard";
-        assignCardColor(heroX.house, cardType);
+        var cardId = "#heroCard";
+        assignCardColor(heroX.house, cardId);
     }
 
     function makeOpponentCard(opY) {
         $("#opponentCard img").attr("src", opY.image).attr("alt", opY.name);
         $("#opponentCard .nameText").html(opY.name);
         $("#opponentCard .healthText").html(opY.maxHealth);
-        var card = "#opponentCard";
-        assignCardColor(opY.house, card);
+        var cardId = "#opponentCard";
+        assignCardColor(opY.house, cardId);
     }
 
-    function assignCardColor(houseX, cardX) {
+    function assignCardColor(houseX, cardIdX) {
         if (houseX === "gryffindor") {
-            $(cardX).removeClass("btn")
+            $(cardIdX).css("background-color", "rgb(209, 4, 4)");
         } else if (houseX === "slytherin") {
-
+            $(cardIdX).css("background-color", "rgb(31, 146, 31)");
         }
     }
 

@@ -4,6 +4,7 @@ $(document).ready(function() {
     var opponent;
     var isHeroSelected;
     var inBattleMode;
+    var isGameOver;
 
     // FUNCTIONS
     function startGame() {
@@ -11,6 +12,7 @@ $(document).ready(function() {
         opponent = {};
         isHeroSelected = false;
         inBattleMode = false;
+        isGameOver = false;
         displayCharStats();
         $("#instruction").html("Select Your Character");
         $(".selection").collapse("show");
@@ -23,57 +25,70 @@ $(document).ready(function() {
     }
 
     function displayCharStats() {
-        $("#harryHealthText").html(" " + characters.harry.maxHealth);
-        $("#hermioneHealthText").html(" " + characters.hermione.maxHealth);
-        $("#mollyHealthText").html(" " + characters.molly.maxHealth);
-        $("#voldemortHealthText").html(" " + characters.voldemort.maxHealth);
-        $("#bellatrixHealthText").html(" " + characters.bellatrix.maxHealth);
-        $("#dracoHealthText").html(" " + characters.draco.maxHealth);
+        $("#harryHealthText").html(" " + characters.harry.health);
+        $("#hermioneHealthText").html(" " + characters.hermione.health);
+        $("#mollyHealthText").html(" " + characters.molly.health);
+        $("#voldemortHealthText").html(" " + characters.voldemort.health);
+        $("#bellatrixHealthText").html(" " + characters.bellatrix.health);
+        $("#dracoHealthText").html(" " + characters.draco.health);
     }
 
     function setupEventHandlers() {
-        $(".gryffindor").on("click", onGryffindorClick);
-        $(".slytherin").on("click", onSlytherinClick);
+        $(".selection > .card").on("click", onSelectCardClick);
+        // $(".slytherin").on("click", onSlytherinClick);
         $("#attackBtn").on("click", onAttackClick);
         $("#restartBtn").on("click", startGame);
     }
 
-    function onGryffindorClick() {
+    function onSelectCardClick() {
         var clickedChar = $(this);
-        var house = "gryffindor";
-        assignDuellers(clickedChar, house);
+        var house = readHouse(clickedChar);
+        if (!inBattleMode) {
+            assignDuellers(clickedChar, house);
+        } else if (isDead(opponent)) {
+            opponent = Object.assign({}, characters[clickedChar.attr("id")]);
+            console.log("NEW OPPONENT: " + JSON.stringify(opponent)); // test
+            clickedChar.parent().collapse("hide");
+            makeOpponentCard(opponent);
+            startBattleRound(hero, opponent);
+            $(".opponentSpace").collapse("show");
+        } else return;
     }
 
-    function onSlytherinClick() {
-        var clickedChar = $(this);
-        var house = "slytherin";
-        assignDuellers(clickedChar, house);
+    function readHouse(clickedCharX) {
+        if (clickedCharX.hasClass("gryffindor")) return "gryffindor";
+        else if (clickedCharX.hasClass("slytherin")) return "slytherin";
+        else return;
     }
 
     function assignDuellers(clickedCharX, houseX) {
-        if (inBattleMode) return;
         if (!isHeroSelected) {
-            console.log("HERO: " + JSON.stringify(hero)); // test
             hero = Object.assign({}, characters[clickedCharX.attr("id")]);
+            console.log("HERO: " + JSON.stringify(hero)); // test
             isHeroSelected = true;
             $("." + houseX).parent().collapse("hide");
             makeHeroCard(hero);
             $(".heroSpace").collapse("show");
         } else {
-            console.log("OPPONENT: " + JSON.stringify(opponent)); // test
             opponent = Object.assign({}, characters[clickedCharX.attr("id")]);
+            console.log("OPPONENT: " + JSON.stringify(opponent)); // test
             clickedCharX.parent().collapse("hide");
             makeOpponentCard(opponent);
-            startBattleMode(hero, opponent);
+            inBattleMode = true;
+            startBattleRound(hero, opponent);
             $(".opponentSpace").collapse("show");
         }
     }
 
+    function isDead(playerX) {
+        if (playerX.health <= 0) return true;
+        else return false;
+    }
+
     function makeHeroCard(heroX) {
-        console.log(heroX.image);
         $("#heroCard img").attr("src", heroX.image).attr("alt", heroX.name);
         $("#heroCard .nameText").html(heroX.name);
-        $("#heroCard .healthText").html(heroX.maxHealth);
+        $("#heroCard .healthText").html(heroX.health);
         var cardId = "#heroCard";
         assignCardColor(heroX.house, cardId);
     }
@@ -81,7 +96,7 @@ $(document).ready(function() {
     function makeOpponentCard(opY) {
         $("#opponentCard img").attr("src", opY.image).attr("alt", opY.name);
         $("#opponentCard .nameText").html(opY.name);
-        $("#opponentCard .healthText").html(opY.maxHealth);
+        $("#opponentCard .healthText").html(opY.health);
         var cardId = "#opponentCard";
         assignCardColor(opY.house, cardId);
     }
@@ -94,14 +109,13 @@ $(document).ready(function() {
         }
     }
 
-    function startBattleMode(heroX, opY) {
-        if (!isHeroSelected) return;
-        console.log("start battle mode");
-        inBattleMode = true;
+    function startBattleRound(heroX, opY) {
+        console.log("start battle round"); //test
         $("#attackBtn").show();
-        var heroAttack = heroX.initAttack;
-        var opAttack = opY.counterAttack;
-        console.log(heroAttack, opAttack);
+        console.log("HERO ATTACK: " + heroX.attack + ", OPPONENT ATTACK: " + opY.attack); //test
+
+        opY.health = 0; //test
+        console.log("HERO HEALTH: " + heroX.health + ", OPPONENT HEALTH: " + opY.health); //test
 
     }
 
@@ -112,12 +126,12 @@ $(document).ready(function() {
 
     // OBJECTS
     var characters = {
-        harry: { name: "Harry Potter", house: "gryffindor", maxHealth: 15, initAttack: 2, counterAttack: 4, image: "assets/images/harry.jpg" },
-        hermione: { name: "Hermione Granger", house: "gryffindor", maxHealth: 25, initAttack: 3, counterAttack: 4, image: "assets/images/hermione.jpg" },
-        molly: { name: "Molly Weasley", house: "gryffindor", maxHealth: 50, initAttack: 5, counterAttack: 4, image: "assets/images/molly.jpg" },
-        voldemort: { name: "Voldemort", house: "slytherin", maxHealth: 60, initAttack: 5, counterAttack: 4, image: "assets/images/voldie.jpg" },
-        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", maxHealth: 40, initAttack: 4, counterAttack: 4, image: "assets/images/bellatrix.jpg" },
-        draco: { name: "Draco Malfoy", house: "slytherin", maxHealth: 15, initAttack: 1, counterAttack: 4, image: "assets/images/draco.jpg" }
+        harry: { name: "Harry Potter", house: "gryffindor", health: 110, attack: 5, counterAttack: 4, image: "assets/images/harry.jpg" },
+        hermione: { name: "Hermione Granger", house: "gryffindor", health: 120, attack: 8, counterAttack: 4, image: "assets/images/hermione.jpg" },
+        molly: { name: "Molly Weasley", house: "gryffindor", health: 140, attack: 5, counterAttack: 4, image: "assets/images/molly.jpg" },
+        voldemort: { name: "Voldemort", house: "slytherin", health: 180, attack: 5, counterAttack: 25, image: "assets/images/voldie.jpg" },
+        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", health: 150, attack: 20, counterAttack: 4, image: "assets/images/bellatrix.jpg" },
+        draco: { name: "Draco Malfoy", house: "slytherin", health: 100, attack: 8, counterAttack: 5, image: "assets/images/draco.jpg" }
     }
 
     // CALLS

@@ -2,6 +2,8 @@ $(document).ready(function() {
     // VARIABLES
     var hero;
     var opponent;
+    var bodyCount;
+    var totalOpponents;
     var isHeroSelected;
     var inBattleMode;
     var isGameOver;
@@ -10,11 +12,13 @@ $(document).ready(function() {
     function startGame() {
         hero = {};
         opponent = {};
+        bodyCount = 0;
+        totalOpponents = 3;
         isHeroSelected = false;
         inBattleMode = false;
         isGameOver = false;
         displayCharStats();
-        $("#instruction").html("Select Your Character");
+        $("#instruction").text("Select Your Character");
         $(".selection").collapse("show");
         $(".heroSpace").collapse("hide");
         $(".opponentSpace").collapse("hide");
@@ -25,12 +29,12 @@ $(document).ready(function() {
     }
 
     function displayCharStats() {
-        $("#harryHealthText").html(" " + characters.harry.health);
-        $("#hermioneHealthText").html(" " + characters.hermione.health);
-        $("#mollyHealthText").html(" " + characters.molly.health);
-        $("#voldemortHealthText").html(" " + characters.voldemort.health);
-        $("#bellatrixHealthText").html(" " + characters.bellatrix.health);
-        $("#dracoHealthText").html(" " + characters.draco.health);
+        $("#harryHealthText").text(" " + characters.harry.health);
+        $("#hermioneHealthText").text(" " + characters.hermione.health);
+        $("#mollyHealthText").text(" " + characters.molly.health);
+        $("#voldemortHealthText").text(" " + characters.voldemort.health);
+        $("#bellatrixHealthText").text(" " + characters.bellatrix.health);
+        $("#dracoHealthText").text(" " + characters.draco.health);
     }
 
     function setupEventHandlers() {
@@ -61,22 +65,22 @@ $(document).ready(function() {
         else return;
     }
 
-    function assignDuellers(clickedCharX, houseX) {
+    function assignDuellers(clickedCharY, houseX) {
         if (!isHeroSelected) {
-            hero = Object.assign({}, characters[clickedCharX.attr("id")]);
+            hero = Object.assign({}, characters[clickedCharY.attr("id")]);
             console.log("HERO: " + JSON.stringify(hero)); // test
             isHeroSelected = true;
             $("." + houseX).parent().collapse("hide");
             makeHeroCard(hero);
-            $(".heroSpace").collapse("show");
+
         } else {
-            opponent = Object.assign({}, characters[clickedCharX.attr("id")]);
+            opponent = Object.assign({}, characters[clickedCharY.attr("id")]);
             console.log("OPPONENT: " + JSON.stringify(opponent)); // test
-            clickedCharX.parent().collapse("hide");
+            clickedCharY.parent().collapse("hide");
             makeOpponentCard(opponent);
             inBattleMode = true;
             startBattleRound(hero, opponent);
-            $(".opponentSpace").collapse("show");
+
         }
     }
 
@@ -87,41 +91,60 @@ $(document).ready(function() {
 
     function makeHeroCard(heroX) {
         $("#heroCard img").attr("src", heroX.image).attr("alt", heroX.name);
-        $("#heroCard .nameText").html(heroX.name);
-        $("#heroCard .healthText").html(heroX.health);
+        $("#heroCard .nameText").text(heroX.name);
+        $("#heroCard .healthText").text(heroX.health);
         var cardId = "#heroCard";
         assignCardColor(heroX.house, cardId);
+        $(".heroSpace").collapse("show");
     }
 
-    function makeOpponentCard(opY) {
-        $("#opponentCard img").attr("src", opY.image).attr("alt", opY.name);
-        $("#opponentCard .nameText").html(opY.name);
-        $("#opponentCard .healthText").html(opY.health);
+    function makeOpponentCard(opX) {
+        $("#opponentCard img").attr("src", opX.image).attr("alt", opX.name);
+        $("#opponentCard .nameText").text(opX.name);
+        $("#opponentCard .healthText").text(opX.health);
         var cardId = "#opponentCard";
-        assignCardColor(opY.house, cardId);
+        assignCardColor(opX.house, cardId);
+        $(".opponentSpace").collapse("show");
     }
 
-    function assignCardColor(houseX, cardIdX) {
-        if (houseX === "gryffindor") {
+    function assignCardColor(houseY, cardIdX) {
+        if (houseY === "gryffindor") {
             $(cardIdX).css("background-color", "rgb(209, 4, 4)");
-        } else if (houseX === "slytherin") {
+        } else if (houseY === "slytherin") {
             $(cardIdX).css("background-color", "rgb(31, 146, 31)");
         }
     }
 
-    function startBattleRound(heroX, opY) {
+    function startBattleRound(heroY, opY) {
         console.log("start battle round"); //test
         $("#attackBtn").show();
-        console.log("HERO ATTACK: " + heroX.attack + ", OPPONENT ATTACK: " + opY.attack); //test
+        console.log("HERO ATTACK: " + heroY.attack + ", OPPONENT ATTACK: " + opY.attack); //test
 
         opY.health = 0; //test
-        console.log("HERO HEALTH: " + heroX.health + ", OPPONENT HEALTH: " + opY.health); //test
+        console.log("HERO HEALTH: " + heroY.health + ", OPPONENT HEALTH: " + opY.health); //test
 
     }
 
     function onAttackClick() {
-        if (!inBattleMode) return;
+        if (isGameOver) return;
+        checkWinLoss(hero, opponent);
     }
+
+    function checkWinLoss(heroZ, opZ) {
+        if (isDead(heroZ)) { // lost
+            isGameOver = true;
+            $("#narrationText").text("You are defeated! Practice your spells and try again.");
+            $("#restartBtn").show();
+        } else if (isDead(opZ) && bodyCount < (totalOpponents - 1)) { // won round
+            bodyCount++;
+            $("#narrationText").text("Opponent defeated! Select next opponent.");
+        } else if (isDead(opZ) && bodyCount >= (totalOpponents - 1)) { // won game
+            isGameOver = true;
+            $("#narrationText").text("You have defeated all Death Eaters! ALL HAIL THE SAVIOR OF HOGWARTS!");
+            $("#restartBtn").show();
+        } else return;
+    }
+
 
 
     // OBJECTS

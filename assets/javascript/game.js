@@ -1,6 +1,5 @@
 $(document).ready(function() {
     // VARIABLES
-    var bgm = new Audio("assets/sounds/HP8.mp3");
     var hero;
     var opponent;
     var herosInitAttack;
@@ -8,6 +7,13 @@ $(document).ready(function() {
     var totalOpponents;
     var isHeroSelected;
     var inBattleMode;
+    var isGameOver;
+    var bgm1 = new Audio("assets/sounds/HP8.mp3");
+    var bgm2 = new Audio("assets/sounds/HP1.mp3");
+    var bgm3 = new Audio("assets/sounds/HP2.mp3");
+    var line = new Audio;
+    var spell = new Audio;
+
 
     // FUNCTIONS
     function startGame() {
@@ -18,6 +24,8 @@ $(document).ready(function() {
         totalOpponents = 3;
         isHeroSelected = false;
         inBattleMode = false;
+        isGameOver = false;
+        bgm2.pause();
         displayCharStats();
         $("#instruction").text("Select Your Character");
         $(".selection").collapse("show");
@@ -27,6 +35,9 @@ $(document).ready(function() {
         $("#restartBtn").addClass("invisible");
         $(".charLabel").hide();
         $("#narrationText").empty();
+        stopAudio();
+        bgm1.play()
+        bgm1.loop = true;
     }
 
     function displayCharStats() {
@@ -95,6 +106,9 @@ $(document).ready(function() {
         var cardId = "#heroCard";
         assignCardColor(hero.house, cardId);
         $(".heroSpace").collapse("show");
+        line.pause();
+        line = new Audio(hero.lines[Math.floor(Math.random() * hero.lines.length)]);
+        line.play();
     }
 
     function makeOpponentCard() {
@@ -104,6 +118,9 @@ $(document).ready(function() {
         var cardId = "#opponentCard";
         assignCardColor(opponent.house, cardId);
         $(".opponentSpace").collapse("show");
+        line.pause();
+        line = new Audio(opponent.lines[Math.floor(Math.random() * opponent.lines.length)]);
+        line.play();
     }
 
     function assignCardColor(houseB, cardIdA) {
@@ -129,6 +146,12 @@ $(document).ready(function() {
         // console.log("HERO ATTACK: " + hero.attack + ", OPPONENT COUNTERATTACK: " + opponent.counterattack); //test
         // console.log("HERO HEALTH: " + hero.health + ", OPPONENT HEALTH: " + opponent.health); //test
         checkWinLoss();
+        line.pause();
+        spell.pause();
+        if (!isGameOver) {
+            spell = new Audio(hero.spells[Math.floor(Math.random() * hero.spells.length)]);
+            spell.play();
+        }
     }
 
     function changePlayerStats() {
@@ -141,34 +164,45 @@ $(document).ready(function() {
 
     function checkWinLoss() {
         if (isDead(hero)) { // lost
+            isGameOver = true;
+            stopAudio();
             $("#narrationText").text("You are defeated! Practice your spells and try again.");
             $("#restartBtn").removeClass("invisible").prop("disabled", false);
             $("#attackBtn").prop("disabled", true);
+            bgm3.play();
         } else if (isDead(opponent) && bodyCount < (totalOpponents - 1)) { // won round
             bodyCount++;
             $("#narrationText").text("Opponent defeated! Select next opponent.");
             $("#attackBtn").prop("disabled", true);
         } else if (isDead(opponent) && bodyCount >= (totalOpponents - 1)) { // won game
+            isGameOver = true;
+            stopAudio();
             $("#narrationText").text("You have defeated all opponents! HAIL THE HERO OF HOGWARTS!");
             $("#restartBtn").removeClass("invisible").prop("disabled", false);
             $("#attackBtn").prop("disabled", true);
+            bgm2.play();
         } else return;
     }
 
-
+    function stopAudio() {
+        bgm1.pause();
+        bgm2.pause();
+        bgm3.pause();
+        line.pause();
+        spell.pause();
+    }
 
     // OBJECTS
     var characters = {
-        harry: { name: "Harry Potter", house: "gryffindor", health: 105, attack: 5, counterattack: 4, image: "assets/images/harry.jpg" },
-        hermione: { name: "Hermione Granger", house: "gryffindor", health: 110, attack: 5, counterattack: 10, image: "assets/images/hermione.jpg" },
-        molly: { name: "Molly Weasley", house: "gryffindor", health: 140, attack: 6, counterattack: 20, image: "assets/images/molly.jpg" },
-        voldemort: { name: "Voldemort", house: "slytherin", health: 160, attack: 6, counterattack: 15, image: "assets/images/voldie.jpg" },
-        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", health: 150, attack: 6, counterattack: 10, image: "assets/images/bellatrix.jpg" },
-        draco: { name: "Draco Malfoy", house: "slytherin", health: 100, attack: 5, counterattack: 3, image: "assets/images/draco.jpg" }
+        harry: { name: "Harry Potter", house: "gryffindor", health: 105, attack: 5, counterattack: 4, image: "assets/images/harry.jpg", lines: ["assets/sounds/harry01.mp3"], spells: ["assets/sounds/harry-sp01.mp3", "assets/sounds/harry-sp02.mp3", "assets/sounds/harry-sp03.mp3", "assets/sounds/harry-sp04.mp3"] },
+        hermione: { name: "Hermione Granger", house: "gryffindor", health: 110, attack: 5, counterattack: 10, image: "assets/images/hermione.jpg", lines: ["assets/sounds/hermione01.mp3"], spells: ["assets/sounds/hermione-sp01.mp3", "assets/sounds/hermione-sp02.mp3", "assets/sounds/hermione-sp03.mp3", "assets/sounds/hermione-sp04.mp3"] },
+        molly: { name: "Molly Weasley", house: "gryffindor", health: 140, attack: 6, counterattack: 20, image: "assets/images/molly.jpg", lines: ["assets/sounds/molly01.mp3"], spells: ["assets/sounds/molly-sp01.mp3", "assets/sounds/molly-sp02.mp3", "assets/sounds/molly-sp03.mp3", "assets/sounds/molly-sp04.mp3"] },
+        voldemort: { name: "Voldemort", house: "slytherin", health: 160, attack: 6, counterattack: 15, image: "assets/images/voldie.jpg", lines: ["assets/sounds/voldie01.mp3", "assets/sounds/voldie02.mp3", "assets/sounds/voldie03.mp3", "assets/sounds/voldie04.mp3", "assets/sounds/voldie05.mp3"], spells: ["assets/sounds/voldie-sp01.mp3", "assets/sounds/voldie-sp02.mp3", "assets/sounds/voldie-sp03.mp3", "assets/sounds/voldie-sp04.mp3"] },
+        bellatrix: { name: "Bellatrix Lestrange", house: "slytherin", health: 150, attack: 6, counterattack: 10, image: "assets/images/bellatrix.jpg", lines: ["assets/sounds/bellatrix01.mp3", "assets/sounds/bellatrix02.mp3", "assets/sounds/bellatrix03.mp3", "assets/sounds/bellatrix04.mp3"], spells: ["assets/sounds/bellatrix-sp01.mp3", "assets/sounds/bellatrix-sp02.mp3", "assets/sounds/bellatrix-sp03.mp3", "assets/sounds/bellatrix-sp04.mp3", "assets/sounds/bellatrix-sp05.mp3"] },
+        draco: { name: "Draco Malfoy", house: "slytherin", health: 100, attack: 5, counterattack: 3, image: "assets/images/draco.jpg", lines: ["assets/sounds/draco01.mp3"], spells: ["assets/sounds/draco-sp01.mp3", "assets/sounds/draco-sp02.mp3", "assets/sounds/draco-sp03.mp3", "assets/sounds/draco-sp04.mp3"] },
     }
 
     // CALLS
-    // bgm.play();
     startGame();
     setupEventHandlers();
 });

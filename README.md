@@ -22,7 +22,7 @@ Players can follow the instructions on screen to proceed with the phases of the 
 
 ### Access
 
-This game can also be accessed from my [portfolio page](https://jkhwu.github.io/Responsive-Portfolio/portfolio.html?vs=1)
+This game can also be accessed from my [portfolio page](https://jkhwu.github.io/Responsive-Portfolio/portfolio.html?vs=1).
 
 ### Copyright
 

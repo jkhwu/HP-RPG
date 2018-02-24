@@ -33,7 +33,7 @@ $(document).ready(function() {
         $(".opponentSpace").collapse("hide");
         $("#attackBtn").addClass("invisible");
         $("#restartBtn").addClass("invisible");
-        $(".charLabel").hide();
+        $(".charLabel").addClass("invisible");
         $("#narrationText").text("(turn sound on for music)");
         stopAudio();
         bgm1.play()
@@ -79,6 +79,7 @@ $(document).ready(function() {
 
     function assignDuellers(clickedCharB, houseA) {
         if (!isHeroSelected) {
+            $(".charLabel").removeClass("invisible");
             hero = Object.assign({}, characters[clickedCharB.attr("id")]);
             // console.log("HERO: " + JSON.stringify(hero)); // test
             isHeroSelected = true;

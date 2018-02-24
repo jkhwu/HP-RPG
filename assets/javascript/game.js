@@ -1,5 +1,6 @@
 $(document).ready(function() {
     // VARIABLES
+    var bgm = new Audio("assets/sounds/HP8.mp3");
     var hero;
     var opponent;
     var herosInitAttack;
@@ -7,7 +8,6 @@ $(document).ready(function() {
     var totalOpponents;
     var isHeroSelected;
     var inBattleMode;
-    // var isGameOver;
 
     // FUNCTIONS
     function startGame() {
@@ -18,14 +18,13 @@ $(document).ready(function() {
         totalOpponents = 3;
         isHeroSelected = false;
         inBattleMode = false;
-        // isGameOver = false;
         displayCharStats();
         $("#instruction").text("Select Your Character");
         $(".selection").collapse("show");
         $(".heroSpace").collapse("hide");
         $(".opponentSpace").collapse("hide");
-        $("#attackBtn").hide();
-        $("#restartBtn").hide();
+        $("#attackBtn").addClass("invisible");
+        $("#restartBtn").addClass("invisible");
         $(".charLabel").hide();
         $("#narrationText").empty();
     }
@@ -41,7 +40,6 @@ $(document).ready(function() {
 
     function setupEventHandlers() {
         $(".selection > .card").on("click", onSelectCardClick);
-        // $(".slytherin").on("click", onSlytherinClick);
         $("#attackBtn").on("click", onAttackClick);
         $("#restartBtn").on("click", startGame);
     }
@@ -53,7 +51,7 @@ $(document).ready(function() {
             assignDuellers(clickedChar, house);
         } else if (isDead(opponent)) {
             opponent = Object.assign({}, characters[clickedChar.attr("id")]);
-            console.log("NEW OPPONENT: " + JSON.stringify(opponent)); // test
+            // console.log("NEW OPPONENT: " + JSON.stringify(opponent)); // test
             clickedChar.parent().collapse("hide");
             makeOpponentCard();
             startBattleRound();
@@ -70,14 +68,14 @@ $(document).ready(function() {
     function assignDuellers(clickedCharB, houseA) {
         if (!isHeroSelected) {
             hero = Object.assign({}, characters[clickedCharB.attr("id")]);
-            console.log("HERO: " + JSON.stringify(hero)); // test
+            // console.log("HERO: " + JSON.stringify(hero)); // test
             isHeroSelected = true;
             herosInitAttack = hero.attack;
             $("." + houseA).parent().collapse("hide");
             makeHeroCard();
         } else {
             opponent = Object.assign({}, characters[clickedCharB.attr("id")]);
-            console.log("OPPONENT: " + JSON.stringify(opponent)); // test
+            // console.log("OPPONENT: " + JSON.stringify(opponent)); // test
             clickedCharB.parent().collapse("hide");
             makeOpponentCard();
             inBattleMode = true;
@@ -117,20 +115,19 @@ $(document).ready(function() {
     }
 
     function startBattleRound() {
-        console.log("start battle round"); //test
+        // console.log("start battle round"); //test
         $("#narrationText").empty();
-        $("#attackBtn").show().prop("disabled", false);
-        // opB.health = 0; //test
-        console.log("HERO ATTACK: " + hero.attack + ", OPPONENT COUNTERATTACK: " + opponent.counterattack); //test
-        console.log("HERO HEALTH: " + hero.health + ", OPPONENT HEALTH: " + opponent.health); //test
+        $("#attackBtn").removeClass("invisible").prop("disabled", false);
+        // console.log("HERO ATTACK: " + hero.attack + ", OPPONENT COUNTERATTACK: " + opponent.counterattack); //test
+        // console.log("HERO HEALTH: " + hero.health + ", OPPONENT HEALTH: " + opponent.health); //test
     }
 
     function onAttackClick() {
-        console.log("attack button clicked"); //test
-        $("#narrationText").html(`You attacked ${opponent.name} for ${hero.attack} damage.<br>${opponent.name} counterattacked for ${opponent.counterattack} damage.`);
+        // console.log("attack button clicked"); //test
+        $("#narrationText").html(`You attacked ${opponent.name} for <em>${hero.attack}</em> damage.<br>${opponent.name} counterattacked for <em>${opponent.counterattack}</em> damage.`);
         changePlayerStats();
-        console.log("HERO ATTACK: " + hero.attack + ", OPPONENT COUNTERATTACK: " + opponent.counterattack); //test
-        console.log("HERO HEALTH: " + hero.health + ", OPPONENT HEALTH: " + opponent.health); //test
+        // console.log("HERO ATTACK: " + hero.attack + ", OPPONENT COUNTERATTACK: " + opponent.counterattack); //test
+        // console.log("HERO HEALTH: " + hero.health + ", OPPONENT HEALTH: " + opponent.health); //test
         checkWinLoss();
     }
 
@@ -144,18 +141,16 @@ $(document).ready(function() {
 
     function checkWinLoss() {
         if (isDead(hero)) { // lost
-            // isGameOver = true;
             $("#narrationText").text("You are defeated! Practice your spells and try again.");
-            $("#restartBtn").show().prop("disabled", false);
+            $("#restartBtn").removeClass("invisible").prop("disabled", false);
             $("#attackBtn").prop("disabled", true);
         } else if (isDead(opponent) && bodyCount < (totalOpponents - 1)) { // won round
             bodyCount++;
             $("#narrationText").text("Opponent defeated! Select next opponent.");
             $("#attackBtn").prop("disabled", true);
         } else if (isDead(opponent) && bodyCount >= (totalOpponents - 1)) { // won game
-            // isGameOver = true;
             $("#narrationText").text("You have defeated all opponents! HAIL THE HERO OF HOGWARTS!");
-            $("#restartBtn").show().prop("disabled", false);
+            $("#restartBtn").removeClass("invisible").prop("disabled", false);
             $("#attackBtn").prop("disabled", true);
         } else return;
     }
@@ -173,12 +168,11 @@ $(document).ready(function() {
     }
 
     // CALLS
+    // bgm.play();
     startGame();
     setupEventHandlers();
 });
 
 // TO DO
-// fix displayed health on selection cards
 // figure out how to avoid flashing hidden content when refreshing
-// remove console.logs
 // formatting

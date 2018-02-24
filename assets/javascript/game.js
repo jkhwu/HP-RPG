@@ -34,7 +34,7 @@ $(document).ready(function() {
         $("#attackBtn").addClass("invisible");
         $("#restartBtn").addClass("invisible");
         $(".charLabel").hide();
-        $("#narrationText").empty();
+        $("#narrationText").text("(turn sound on for music)");
         stopAudio();
         bgm1.play()
         bgm1.loop = true;
@@ -58,6 +58,7 @@ $(document).ready(function() {
     function onSelectCardClick() {
         var clickedChar = $(this);
         var house = readHouse(clickedChar);
+        $("#narrationText").empty();
         if (!inBattleMode) {
             assignDuellers(clickedChar, house);
         } else if (isDead(opponent)) {
@@ -84,6 +85,7 @@ $(document).ready(function() {
             herosInitAttack = hero.attack;
             $("." + houseA).parent().collapse("hide");
             makeHeroCard();
+            $("#instruction").text("Select your opponent");
         } else {
             opponent = Object.assign({}, characters[clickedCharB.attr("id")]);
             // console.log("OPPONENT: " + JSON.stringify(opponent)); // test
@@ -133,6 +135,7 @@ $(document).ready(function() {
 
     function startBattleRound() {
         // console.log("start battle round"); //test
+        $("#instruction").empty();
         $("#narrationText").empty();
         $("#attackBtn").removeClass("invisible").prop("disabled", false);
         // console.log("HERO ATTACK: " + hero.attack + ", OPPONENT COUNTERATTACK: " + opponent.counterattack); //test
@@ -206,7 +209,3 @@ $(document).ready(function() {
     startGame();
     setupEventHandlers();
 });
-
-// TO DO
-// figure out how to avoid flashing hidden content when refreshing
-// formatting
